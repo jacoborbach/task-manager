@@ -16,7 +16,7 @@ function App() {
     console.log(todos)
     setTodo('')
   };
-  const editTodo = {};
+  const deleteTodo = {};
 
   
   return (
@@ -36,7 +36,7 @@ function App() {
         <span>
           {todo.todo}
         </span>    
-        {/* <button onClick={editTodo}>Edit</button>     */}
+        <button onClick={deleteTodo}>Delete</button>    
       </li>
     ))}
     </ul>
