@@ -4,13 +4,9 @@ import AddTask from "./components/AddTask";
 import TaskList from "./components/TaskList";
 import axios from "axios";
 
-
-
 function App() {
   //initialize empty task array
   const [tasks, setTasks] = useState([])
-  const [newTask, setNewTask] = useState([])
-  const [newTaskTitle, setNewTaskTitle] = useState("");
 
   //load tasks from backend on page load
   useEffect(() => {
@@ -26,11 +22,13 @@ const fetchTasks = async () => {
   }
 };
   
-const addTask = async () => {
-  if (newTask.trim()) {
-    const res = await axios.post('http://localhost:3000/api/tasks', { title: newTask, completed: false });
-    setTasks([...tasks, res.data]);
-    setNewTask('');
+// Add a new task
+const addTask = async (title) => {
+  try {
+      const response = await axios.post("http://localhost:3000/api/tasks", { title });
+      setTasks([...tasks, response.data]);
+  } catch (error) {
+      console.error("Error adding task:", error);
   }
 };
 
@@ -62,12 +60,7 @@ const addTask = async () => {
     <div className="App">
       <h2 className="Header">Jake's Task List</h2>
 
-      <input 
-        type="text" 
-        placeholder="Add task"
-        value={newTask}
-        onChange={e => setNewTask(e.target.value)}/>
-        <button onClick={addTask}>Add Task</button>
+      <AddTask addTask={addTask} />
 
       <ul className="tasks">
     {tasks.map ? tasks.map((task, i) => (
