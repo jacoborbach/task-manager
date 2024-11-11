@@ -12,6 +12,8 @@ function App() {
 
   //load tasks from backend on page load
   useEffect(() => {
+    const savedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    setTasks(savedTasks);
     fetchTasks();
   }, []);
 
@@ -19,6 +21,7 @@ function App() {
     try {
       const response = await axios.get('http://localhost:3000/api/tasks');
       setTasks(response.data.tasks);
+      localStorage.setItem('tasks', JSON.stringify(response.data.tasks));
     } catch (error) {
       console.error('Error fetching tasks:', error);
     }
@@ -28,7 +31,9 @@ function App() {
   const addTask = async (title) => {
     try {
       const response = await axios.post("http://localhost:3000/api/tasks", { title });
-      setTasks([...tasks, response.data]);
+      const updatedTasks = [...tasks, response.data];
+      setTasks(updatedTasks);
+      localStorage.setItem('tasks', JSON.stringify(updatedTasks));
     } catch (error) {
       console.error("Error adding task:", error);
     }
@@ -51,7 +56,9 @@ function App() {
     if (newTitle && newTitle !== currentTitle) {
       try {
         await axios.put(`http://localhost:3000/api/tasks/${id}`, { title: newTitle });
-        setTasks(tasks.map(task => (task.id === id ? { ...task, title: newTitle } : task)));
+        const updatedTasks = tasks.map(task => (task.id === id ? { ...task, title: newTitle } : task));
+        setTasks(updatedTasks);
+        localStorage.setItem('tasks', JSON.stringify(updatedTasks));
       } catch (error) {
         console.error("Error updating task:", error);
       }
