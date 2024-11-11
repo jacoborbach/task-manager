@@ -1,6 +1,7 @@
 import React from "react";
 
-function TaskList({ tasks, editTask, deleteTask, toggleTask }) {
+function TaskList({ tasks, editTask, toggleTask, setShowModal, setTaskToDelete }) {
+
 
     return (
         <div>
@@ -16,10 +17,12 @@ function TaskList({ tasks, editTask, deleteTask, toggleTask }) {
                         </span>
                         <button onClick={() => editTask(task.id, task.title)} className="btn btn-secondary btn-sm mr-2 flex-end
                         ">Edit</button>
-                        <button onClick={() => deleteTask(task.id)} className="btn btn-danger btn-sm">Delete</button>
+                        <button onClick={() => { setTaskToDelete(task.id); setShowModal(true); }} className="btn btn-danger btn-sm">Delete</button>
                     </li>
                 )) : null}
             </ul>
+
+
         </div>
     );
 }

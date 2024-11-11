@@ -3,12 +3,15 @@ import axios from "axios";
 import React, { useState, useEffect } from 'react';
 import AddTask from "./components/AddTask";
 import TaskList from "./components/TaskList";
+import ConfirmationModal from './components/ConfirmationModal';
 import "bootstrap/dist/css/bootstrap.min.css";
 
 
 function App() {
   //initialize empty task array
   const [tasks, setTasks] = useState([])
+  const [showModal, setShowModal] = useState(false);
+  const [taskToDelete, setTaskToDelete] = useState(null);
 
   //load tasks from backend on page load
   useEffect(() => {
@@ -48,6 +51,7 @@ function App() {
   const deleteTask = async (id) => {
     await axios.delete(`${'http://localhost:3000/api/tasks'}/${id}`);
     fetchTasks();
+    setShowModal(false)
   };
 
   // Edit a task title
@@ -69,7 +73,11 @@ function App() {
     <div className="App container mt-5">
       <h2 className="text-center mb-4">Task Manager</h2>
       <AddTask addTask={addTask} />
-      <TaskList tasks={tasks} editTask={editTask} deleteTask={deleteTask} toggleTask={toggleTask} />
+      <TaskList tasks={tasks} editTask={editTask} deleteTask={deleteTask} toggleTask={toggleTask} setShowModal={setShowModal} setTaskToDelete={setTaskToDelete} />
+
+      {showModal && (
+        <ConfirmationModal setShowModal={setShowModal} taskToDelete={taskToDelete} deleteTask={deleteTask} />
+      )}
     </div>
   );
 }
