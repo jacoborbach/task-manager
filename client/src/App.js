@@ -23,8 +23,9 @@ function App() {
   const fetchTasks = async () => {
     try {
       const response = await axios.get('http://localhost:3000/api/tasks');
-      setTasks(response.data.tasks);
-      localStorage.setItem('tasks', JSON.stringify(response.data.tasks));
+      console.log(response.data)
+      setTasks(response.data);
+      localStorage.setItem('tasks', JSON.stringify(response.data));
     } catch (error) {
       console.error('Error fetching tasks:', error);
     }
