@@ -13,14 +13,17 @@ function AddTask({ addTask }) {
 
     return (
         <div>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    value={newTask}
-                    onChange={(e) => setNewTask(e.target.value)}
-                    placeholder="New task title"
-                />
-                <button type="submit">Add Task</button>
+            <form onSubmit={handleSubmit} className="mb-4 d-flex justify-content-center">
+                <div className="form-group mr-2">
+                    <input
+                        type="text"
+                        value={newTask}
+                        onChange={(e) => setNewTask(e.target.value)}
+                        className="form-control mr-2"
+                        placeholder="Add New Task"
+                    />
+                </div>
+                <button type="submit" className="btn btn-primary">Add Task</button>
             </form>
         </div>
     );

@@ -1,8 +1,10 @@
 import './App.css';
+import axios from "axios";
 import React, { useState, useEffect } from 'react';
 import AddTask from "./components/AddTask";
 import TaskList from "./components/TaskList";
-import axios from "axios";
+import "bootstrap/dist/css/bootstrap.min.css";
+
 
 function App() {
   //initialize empty task array
@@ -57,8 +59,8 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <h2 className="Header">Jake's Task List</h2>
+    <div className="App container mt-5">
+      <h2 className="text-center mb-4">Task Manager</h2>
       <AddTask addTask={addTask} />
       <TaskList tasks={tasks} editTask={editTask} deleteTask={deleteTask} toggleTask={toggleTask} />
     </div>

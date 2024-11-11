@@ -2,18 +2,6 @@
   text-align: center;
 }
 
-.Header {
-  text-decoration: underline;
-}
-
-.ToDos {
-  margin: 0 auto;
-  border: 1px groove blue;
-  border-radius: 10px;
-  width: 50%;
-}
-
-li span{
-  position: relative;
-  left: -10px;
+.task-title {
+  flex-grow: 0.98;
 }
