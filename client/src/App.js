@@ -13,22 +13,34 @@ function App() {
 
   //load tasks from backend on page load
   useEffect(() => {
-    const fetchTasks = async () => {
-        try {
-            const response = await axios.get("http://localhost:3000/api/tasks");
-            setTasks(response.data.tasks);
-        } catch (error) {
-            console.error("Error fetching tasks:", error);
-        }
-    };
-
     fetchTasks();
-}, []);  
+  }, []);  
+
+const fetchTasks = async () => {
+  try {
+      const response = await axios.get('http://localhost:3000/api/tasks');
+      setTasks(response.data.tasks);
+  } catch (error) {
+      console.error('Error fetching tasks:', error);
+  }
+};
   
-  const addtask = () => {
-    console.log(newTask)
-    // setTasks([...tasks, newTask]);
+const addTask = async () => {
+  if (newTask.trim()) {
+    const res = await axios.post('http://localhost:3000/api/tasks', { title: newTask, completed: false });
+    setTasks([...tasks, res.data]);
     setNewTask('');
+  }
+};
+
+  const toggleTask = async (id, completed) => {
+    await axios.put(`${'http://localhost:3000/api/tasks'}/${id}`, { completed: !completed });
+    fetchTasks();
+  };
+
+  const deleteTask = async (id) => {
+    await axios.delete(`${'http://localhost:3000/api/tasks'}/${id}`);
+    fetchTasks();
   };
   
   return (
@@ -40,16 +52,19 @@ function App() {
         placeholder="Add task"
         value={newTask}
         onChange={e => setNewTask(e.target.value)}/>
-        <button onClick={addtask}>Add Task</button>
+        <button onClick={addTask}>Add Task</button>
 
       <ul className="tasks">
     {tasks.map ? tasks.map((task, i) => (
       <li key={task.id}>
-        <span>
+        <span
+          style={{textDecoration: task.completed ? 'line-through' : 'none'}}
+          onClick={() => toggleTask(task.id, task.completed)}
+        >
           {task.title}
         </span>    
-        {/* <button onClick={deletetask}>Delete</button>     */}
-      </li>
+        <button onClick={() => deleteTask(task.id)}>Delete</button>
+        </li>
     )):null}
     </ul>
     </div>
