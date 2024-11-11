@@ -23,7 +23,6 @@ function App() {
   const fetchTasks = async () => {
     try {
       const response = await axios.get('http://localhost:3000/api/tasks');
-      console.log(response.data)
       setTasks(response.data);
       localStorage.setItem('tasks', JSON.stringify(response.data));
     } catch (error) {
