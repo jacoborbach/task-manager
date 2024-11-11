@@ -1,23 +1,35 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import AddTask from "./components/AddTask";
+import TaskList from "./components/TaskList";
+import axios from "axios";
 
 
-const todos = [
-  {"id": "1", "todo": "something"}, 
-  {"id": "2", "todo": "somethingelse"}]
 
 function App() {
+  //initialize empty task array
+  const [tasks, setTasks] = useState([])
+  const [newTask, setNewTask] = useState([])
 
-  const [todo, setTodo] = useState('')
+  //load tasks from backend on page load
+  useEffect(() => {
+    const fetchTasks = async () => {
+        try {
+            const response = await axios.get("http://localhost:3000/api/tasks");
+            setTasks(response.data.tasks);
+        } catch (error) {
+            console.error("Error fetching tasks:", error);
+        }
+    };
 
-  const addtodo = () => {
-    console.log(todo)
-    todos.push({"id": "3", "todo": todo})
-    console.log(todos)
-    setTodo('')
+    fetchTasks();
+}, []);  
+  
+  const addtask = () => {
+    console.log(newTask)
+    // setTasks([...tasks, newTask]);
+    setNewTask('');
   };
-  const deleteTodo = {};
-
   
   return (
     <div className="App">
@@ -25,20 +37,20 @@ function App() {
 
       <input 
         type="text" 
-        placeholder="Add todo"
-        value={todo}
-        onChange={e => setTodo(e.target.value)}/>
-        <button onClick={addtodo}>Add Task</button>
+        placeholder="Add task"
+        value={newTask}
+        onChange={e => setNewTask(e.target.value)}/>
+        <button onClick={addtask}>Add Task</button>
 
-      <ul className="ToDos">
-    {todos.map((todo, i) => (
-      <li key={i}>
+      <ul className="tasks">
+    {tasks.map ? tasks.map((task, i) => (
+      <li key={task.id}>
         <span>
-          {todo.todo}
+          {task.title}
         </span>    
-        <button onClick={deleteTodo}>Delete</button>    
+        {/* <button onClick={deletetask}>Delete</button>     */}
       </li>
-    ))}
+    )):null}
     </ul>
     </div>
   );
