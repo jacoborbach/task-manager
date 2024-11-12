@@ -16,9 +16,9 @@ A simple full-stack application for managing a task list, with functionality to 
 - cd /task-manager
 
 ### Install dependencies
-- cd client
+- cd /client
 - npm install
-- cd server
+- cd /server
 - npm install
 
 ### Run the application
