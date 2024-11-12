@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+// Form for handling add task feature
 function AddTask({ addTask }) {
     const [newTask, setNewTask] = useState("");
 

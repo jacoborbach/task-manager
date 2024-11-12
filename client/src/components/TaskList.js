@@ -1,7 +1,7 @@
 import React from "react";
 
+// Task List Component for viewing, editing and deleting tasks
 function TaskList({ tasks, editTask, toggleTask, setShowModal, setTaskToDelete }) {
-
 
     return (
         <div>

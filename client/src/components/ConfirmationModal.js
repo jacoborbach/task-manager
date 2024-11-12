@@ -1,6 +1,6 @@
 import React from "react";
 
-//Helped Generate this using AI
+// Confirmation modal design using Bootsrap - Helped Generate this using AI
 function ConfirmationModal({ setShowModal, taskToDelete, deleteTask }) {
 
     return (
