@@ -12,7 +12,8 @@ A simple full-stack application for managing a task list, with functionality to 
 - Node.js (Version 16+ Used)
 
 ## Clone Repo and Get Started
-git clone https://github.com/jacoborbach/task-manager.git
+- git clone https://github.com/jacoborbach/task-manager.git
+- cd /task-manager
 
 ### Install dependencies
 - cd client
