@@ -12,7 +12,7 @@ A simple full-stack application for managing a task list, with functionality to 
 - Node.js (Version 16+ Used)
 
 ## Clone Repo and Get Started
-git clone https://github.com/jacoborbach/todo-OneDigital.git
+git clone https://github.com/jacoborbach/task-manager.git
 
 ### Install dependencies
 - cd client
